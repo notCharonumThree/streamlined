@@ -1,0 +1,32 @@
+[
+  {
+    "name": "GeForce Now",
+    "link": "https://play.geforcenow.com",
+    "image": "/images/GFN.png",
+    "categories": ["all"]
+  },
+  {
+    "name": "Amazon Luna",
+    "link": "https://luna.amazon.com/",
+    "image": "/images/Luna.png",
+    "categories": ["all"]
+  },
+  {
+    "name": "1v1.LOL",
+    "link": "https://1v1.lol",
+    "image": "/images/1v1-lol.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Drift Hunters",
+    "link": "https://webglmath.github.io/drift-hunters/",
+    "image": "/images/drift-hunters.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Minecraft 1.8",
+    "link": "https://eaglercraft.com/mc/1.8.8/",
+    "image": "/images/mc.webp",
+    "categories": ["all"]
+  }
+]

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="index.css" />
+    <script src="global.js"></script>
+    <script src="home.js"></script>
+  </head>
+  <body>
+    <div class="fixed-nav-bar">
+      <div class="fixed-nav-bar-container">
+        <a class="home-icon material-symbols-rounded" href="/./">home</a>
+      </div>
+      <div class="fixed-nav-bar-right" style="text-align: center;">
+        <a class="navbar-link" href="/gm"><i class="navbar-icon material-symbols-rounded" aria-hidden="true">stadia_controller</i><an>Ga</an><an>mes</an></a>
+        <a class="navbar-link" href="/ta"><i class="navbar-icon material-symbols-rounded" aria-hidden="true">laptop_chromebook</i><an>Ta</an><an>bs</an></a>
+        <a class="navbar-link" href="/st"><i class="navbar-icon material-symbols-rounded" aria-hidden="true">settings</i><an>Set</an><an>tings</an></a>
+      </div>
+    </div>
+    <h1 class="main-title">Streamlined</h1>
+    <div class="tab-button">
+      <p id="welcome"></p>
+    </div>
+    <h1 class="hide">CLOAK FAILED. RELOAD THIS PAGE</h1>
+    <script>
+      async function check() {
+        let inFrame
+
+      try {
+        inFrame = window !== top
+      } catch (e) {
+        inFrame = true
+      }
+      if (!inFrame) {
+        const popup = open("about:blank", "_blank")
+        if (!popup || popup.closed) {
+          alert("Please allow popups and redirects.")
+        } else {
+          const doc = popup.document
+          const iframe = doc.createElement("iframe")
+          const style = iframe.style
+          const link = doc.createElement("link")
+
+          const name = localStorage.getItem("name") || "My Drive - Google Drive"
+          const icon = localStorage.getItem("icon") || "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png"
+
+          doc.title = name
+          link.rel = "icon"
+          link.href = icon
+
+          iframe.src = location.href
+          style.position = "fixed"
+          style.top = style.bottom = style.left = style.right = 0
+          style.border = style.outline = "none"
+          style.width = style.height = "100%"
+
+          doc.head.appendChild(link)
+          doc.body.appendChild(iframe)
+
+          location.replace('https://www.google.com')
+
+          const script = doc.createElement("script")
+          script.textContent = `
+            window.onbeforeunload = function (event) {
+              const confirmationMessage = 'GoGuardian Lock Prevention: Press Cancel to prevent this webpage from closing.';
+              (event || window.event).returnValue = confirmationMessage;
+              return confirmationMessage;
+            };
+          `
+          doc.head.appendChild(script)
+        }
+      }
+        res = await fetch("/verified", {
+        method: "POST",
+        body: JSON.stringify({"name": localStorage.getItem('verified')}),
+        headers: {
+            "Content-type": "application/json"
+        }
+    })
+      if (!await res.json()) {
+        window.location.href = '/verify.html'
+      }
+    }
+    check()
+    </script>
+  </body>
+</html>

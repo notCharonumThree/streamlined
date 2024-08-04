@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="referrer" content="no-referrer" />
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
+    <title id="tab-title">Home</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="index.css" />
+    <script src="global.js"></script>
+    <script src="settings.js" defer></script>
+  </head>
+  <body>
+    <div class="fixed-nav-bar">
+      <div class="fixed-nav-bar-container">
+        <a class="home-icon material-symbols-rounded" href="/./">home</a>
+      </div>
+      <div class="fixed-nav-bar-right" style="text-align: center;">
+        <a class="navbar-link" href="/gm"><i class="navbar-icon material-symbols-rounded" aria-hidden="true">stadia_controller</i><an>Ga</an><an>mes</an></a>
+        <a class="navbar-link" href="/ta"><i class="navbar-icon material-symbols-rounded" aria-hidden="true">laptop_chromebook</i><an>Ta</an><an>bs</an></a>
+        <a class="navbar-link" href="/st"><i class="navbar-icon material-symbols-rounded" aria-hidden="true">settings</i><an>Set</an><an>tings</an></a>
+      </div>
+    </div>
+    <div class="main">
+      <div class="settings-container">
+        <div class="settings-card">
+          <h3>Themes</h3>
+          <p>Here are Streamlined's builtin themes. (Default is Dracula)</p>
+          <select id="themeDropdown" class="td" onchange="themeChange(this)">
+            <option value="dracula">Dracula (Dark)</option>
+            <option value="mocha">Mocha (Dark)</option>
+            <option value="latte">Latte (Light)</option>
+          </select>
+        </div>
+        <div class="settings-card">
+          <h3>Cloaking</h3>
+          <p>This is what the tab will be labeled as. (Default is Google Drive)</p>
+          <select id="cloakDropdown" class="td" onchange="cloakChange(this)">
+            <option value="gd">Google Drive</option>
+            <option value="gc">Google Classroom</option>
+            <option value="msn">My.sduhsd.net</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

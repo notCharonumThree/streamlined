@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="onboard.css">
+</head>
+<body>
+    <h1 class="main-title">Streamlined</h1>
+    <div id="page1" class="page">
+        <h2>Select Your Theme</h2>
+        <div class="button-group">
+            <button class="theme-btn" data-theme="dracula">Dracula</button>
+            <button class="theme-btn" data-theme="mocha">Mocha</button>
+            <button class="theme-btn" data-theme="latte">Latte</button>
+        </div>
+        <button id="next-to-style">Next</button>
+    </div>
+
+    <div id="page2" class="page hidden">
+        <h2>Select Your Cloak</h2>
+        <div class="button-group">
+            <button class="cloak-btn" data-style="gd">Google Drive</button>
+            <button class="cloak-btn" data-style="gc">Google Classroom</button>
+            <button class="cloak-btn" data-style="msn">my.sduhsd.net</button>
+        </div>
+        <button id="finish">Finish</button>
+    </div>
+
+    <script src="onboard.js"></script>
+    <script>
+        async function check() {
+          let inFrame
+  
+        try {
+          inFrame = window !== top
+        } catch (e) {
+          inFrame = true
+        }
+        if (!inFrame) {
+          const popup = open("about:blank", "_blank")
+          if (!popup || popup.closed) {
+            alert("Please allow popups and redirects.")
+          } else {
+            const doc = popup.document
+            const iframe = doc.createElement("iframe")
+            const style = iframe.style
+            const link = doc.createElement("link")
+  
+            const name = localStorage.getItem("name") || "My Drive - Google Drive"
+            const icon = localStorage.getItem("icon") || "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png"
+  
+            doc.title = name
+            link.rel = "icon"
+            link.href = icon
+  
+            iframe.src = location.href
+            style.position = "fixed"
+            style.top = style.bottom = style.left = style.right = 0
+            style.border = style.outline = "none"
+            style.width = style.height = "100%"
+  
+            doc.head.appendChild(link)
+            doc.body.appendChild(iframe)
+  
+            location.replace('https://www.google.com')
+  
+            const script = doc.createElement("script")
+            script.textContent = `
+              window.onbeforeunload = function (event) {
+                const confirmationMessage = 'GoGuardian Lock Prevention: Press Cancel to prevent this webpage from closing.';
+                (event || window.event).returnValue = confirmationMessage;
+                return confirmationMessage;
+              };
+            `
+            doc.head.appendChild(script)
+          }
+        }
+          res = await fetch("/verified", {
+          method: "POST",
+          body: JSON.stringify({"name": localStorage.getItem('verified')}),
+          headers: {
+              "Content-type": "application/json"
+          }
+      })
+        if (!await res.json()) {
+          window.location.href = '/verify.html'
+        }
+      }
+      check()
+      </script>
+</body>
+</html>
