@@ -36,8 +36,10 @@
       if (shouldRedirect(domains, currentDomain)) {
           window.location.href = 'https://example.com';
       }
-      document.addEventListener('DOMContentLoaded', redirectIfDomainMatches);
-  }</script>
+  }
+  
+  document.addEventListener('DOMContentLoaded', redirectIfDomainMatches);
+  </script>
   </head>
   <body>
     <div class="fixed-nav-bar">
