@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="index.css" />
     <script src="global.js"></script>
     <script src="home.js"></script>
-    <script defer>async function fetchDomains() {
+    <script>async function fetchDomains() {
       try {
-          const response = await fetch('compromised.json');
+          const response = await fetch('domains.json');
           if (!response.ok) {
               throw new Error('Network response was not ok ' + response.statusText);
           }
@@ -29,13 +29,15 @@
       return domains.some(domain => currentDomain.endsWith(domain));
   }
 
-  const domains = await fetchDomains();
-  const currentDomain = getDomainFromHostname(window.location.hostname);
+  async function redirectIfDomainMatches() {
+      const domains = await fetchDomains();
+      const currentDomain = getDomainFromHostname(window.location.hostname);
 
-  if (shouldRedirect(domains, currentDomain)) {
-      window.location.href = 'https://example.com';
-  }
-      </script>
+      if (shouldRedirect(domains, currentDomain)) {
+          window.location.href = 'https://example.com';
+      }
+      document.addEventListener('DOMContentLoaded', redirectIfDomainMatches);
+  }</script>
   </head>
   <body>
     <div class="fixed-nav-bar">
