@@ -8,7 +8,7 @@
     <script src="home.js"></script>
     <script defer>async function fetchDomains() {
       try {
-          const response = await fetch('domains.json');
+          const response = await fetch('compromised.json');
           if (!response.ok) {
               throw new Error('Network response was not ok ' + response.statusText);
           }
@@ -29,15 +29,13 @@
       return domains.some(domain => currentDomain.endsWith(domain));
   }
 
-  async function redirectIfDomainMatches() {
-      const domains = await fetchDomains();
-      const currentDomain = getDomainFromHostname(window.location.hostname);
+  const domains = await fetchDomains();
+  const currentDomain = getDomainFromHostname(window.location.hostname);
 
-      if (shouldRedirect(domains, currentDomain)) {
-          window.location.href = 'https://example.com';
-      }
-      document.addEventListener('DOMContentLoaded', redirectIfDomainMatches);
-  }</script>
+  if (shouldRedirect(domains, currentDomain)) {
+      window.location.href = 'https://example.com';
+  }
+      </script>
   </head>
   <body>
     <div class="fixed-nav-bar">
