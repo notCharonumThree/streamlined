@@ -6,36 +6,6 @@
     <link rel="stylesheet" href="index.css" />
     <script src="global.js"></script>
     <script src="home.js"></script>
-    <script>async function fetchDomains() {
-      try {
-          const response = await fetch('compromised.json');
-          if (!response.ok) {
-              throw new Error('Network response was not ok ' + response.statusText);
-          }
-          const data = await response.json();
-          return data;
-      } catch (error) {
-          console.error('Error fetching domains:', error);
-          return [];
-      }
-  }
-
-  function getDomainFromHostname(hostname) {
-      const parts = hostname.split('.');
-      return parts.slice(parts.length - 2).join('.');
-  }
-
-  async function redirectIfDomainMatches() {
-      const domains = await fetchDomains();
-      const currentDomain = getDomainFromHostname(window.location.hostname);
-
-      if (domains.includes(currentDomain)) {
-          window.location.href = 'https://example.com';
-      }
-  }
-  
-  document.addEventListener('DOMContentLoaded', redirectIfDomainMatches);
-  </script>
   </head>
   <body>
     <div class="fixed-nav-bar">
