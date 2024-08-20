@@ -15,6 +15,8 @@ const bareServer = createBareServer("/ov/")
 const PORT = process.env.PORT || 8080
 const cache = new Map()
 const CACHE_TTL = 30 * 24 * 60 * 60 * 1000 // Cache for 30 Days
+const TOKEN = '';
+const CHANNEL_ID = '1275301314225635382';
 
 app.get("/e/*", async (req, res, next) => {
   if (cache.has(req.path)) {
@@ -132,6 +134,73 @@ app.post('/verify', (req, res) => {
     res.send({"status": "verified"})
   }
 })
+
+app.post('/message', (req, res) => {
+
+  const message = "\"" + req.body.from + "\"" + ">" + "\"" + req.body.to + "\"" + "." + req.body.msg;
+
+  const url = `https://discord.com/api/v10/channels/${CHANNEL_ID}/messages`;
+  const headers = {
+      'Authorization': `Bot ${TOKEN}`,
+      'Content-Type': 'application/json'
+  };
+
+  const payload = {
+      content: message
+  };
+
+  fetch(url, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(payload)
+  })
+  .then(response => {
+      if (response.ok) {
+          res.sendStatus(200);
+      } else {
+          return response.json().then(data => {
+              res.sendStatus(500);
+          });
+      }
+  })
+  .catch(error => {
+      res.sendStatus(500);
+  });
+})
+
+
+app.get("/messages", (req, res) => {
+  const url = `https://discord.com/api/v10/channels/${CHANNEL_ID}/messages`;
+  const headers = {
+      'Authorization': `Bot ${TOKEN}`,
+      'Content-Type': 'application/json'
+  };
+
+  const params = new URLSearchParams({
+      'limit': 10
+  });
+
+  fetch(`${url}?${params}`, {
+      method: 'GET',
+      headers: headers
+  })
+  .then(response => {
+      if (response.ok) {
+          return response.json();
+      } else {
+          return response.json().then(data => {
+              res.sendStatus(500);
+          });
+      }
+  })
+  .then(data => {
+      res.send(data.map(dict => dict["content"]));
+  })
+  .catch(error => {
+      res.sendStatus(500);
+  });
+});
+
 
 const routes = [
   { path: "/gm", file: "games.html" },

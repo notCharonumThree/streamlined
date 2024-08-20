@@ -1,0 +1,23 @@
+<script>
+    fetch("/message", {
+        headers: {
+            "Content-type": "application/json"
+        },
+        method: 'POST',
+        body: JSON.stringify({"msg": "hello", "to": "large lion", "from": "small lion"}),
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error(`Failed to send message: ${response.status}`);
+        }
+    })
+    .then(data => {
+        console.log('Message sent successfully:', data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+</script>
