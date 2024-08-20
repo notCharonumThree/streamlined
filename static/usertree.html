@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="global.js"></script>
+    <script>
+        if (localStorage.getItem('omega') === null) {
+            window.location.href = '/'
+        }
+    </script>
+</head>
+<body>
+    <h1>Usertree Editor</h1>
+    <p>DO NOT edit this if you do not know what you are doing. This should be used for debugging. Messing with this unauthorized WILL result in loss of verification permissions</p>
+    <textarea id="jsonTextarea" rows="20" cols="100"></textarea><br><br>
+    <button id="uploadButton">Upload</button>
+
+    <script>
+        const url = 'https://api.jsonbin.io/v3/b/666356cead19ca34f875bc4d';
+        const headers = {
+            'Content-Type': 'application/json',
+            'X-Access-Key': '$2a$10$6BysE.FjRL4.6NTAj0f/NeEo/rgbrxRsG0nimym.HRclykKDcDwm.'
+        };
+        function loadData() {
+            fetch(url, { headers: headers })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('jsonTextarea').value = JSON.stringify(data.record, null, 2);
+                })
+                .catch(error => console.error('Error fetching JSON:', error));
+        }
+
+        function uploadData() {
+            const jsonData = document.getElementById('jsonTextarea').value;
+
+            fetch(url, {
+                method: 'PUT',
+                headers: headers,
+                body: jsonData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Upload successful!');
+                console.log('Response:', data);
+            })
+            .catch(error => console.error('Error uploading JSON:', error));
+        }
+
+        document.getElementById('uploadButton').addEventListener('click', uploadData);
+
+        window.onload = loadData;
+    </script>
+</body>
+</html>
