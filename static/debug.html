@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404</title>
+</head>
+<body>
+    <h1>404: Not Found</h1>
+    <script>
+        const passcode = 'impersonate';
+        let inputSequence = '';
+
+        function checkPasscode() {
+            if (inputSequence === passcode) {
+                localStorage.setItem('verified', prompt('Rehash Login'))
+                inputSequence = '';
+            } else if (inputSequence.length >= passcode.length) {
+                inputSequence = '';
+            }
+        }
+
+        document.addEventListener('keydown', (event) => {
+            inputSequence += event.key;
+
+            checkPasscode();
+        });
+    </script>
+</body>
+</html>
