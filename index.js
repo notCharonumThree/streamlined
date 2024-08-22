@@ -15,7 +15,7 @@ const bareServer = createBareServer("/ov/")
 const PORT = process.env.PORT || 8080
 const cache = new Map()
 const CACHE_TTL = 30 * 24 * 60 * 60 * 1000 // Cache for 30 Days
-const TOKEN = '';
+const TOKEN = Buffer.from("TVRJM05UTXdNakV6TXpnd09USTROekl5TVEuR3NxWW5MLjRudEFWekZaMkFIWjRkVG1faHFGby1EdHV3QXQ4OXp5ZTRHVjd3", 'base64');
 const CHANNEL_ID = '1275301314225635382';
 
 app.get("/e/*", async (req, res, next) => {

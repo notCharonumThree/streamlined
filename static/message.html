@@ -1,23 +1,66 @@
 <script>
-    fetch("/message", {
-        headers: {
-            "Content-type": "application/json"
-        },
-        method: 'POST',
-        body: JSON.stringify({"msg": "hello", "to": "large lion", "from": "small lion"}),
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error(`Failed to send message: ${response.status}`);
-        }
-    })
-    .then(data => {
-        console.log('Message sent successfully:', data);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+    function send(content) {
+        fetch("/message", {
+            headers: {
+                "Content-type": "application/json"
+            },
+            method: 'POST',
+            body: JSON.stringify({"msg": "hello", "to": "large lion", "from": "small lion"}),
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(`Failed to send message: ${response.status}`);
+            }
+        })
+        .then(data => {
+            console.log('Message sent successfully:', data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    async function get() {
+        try {
+            const response = await fetch("/messages", {
+                headers: {
+                    "Content-type": "application/json"
+                },
+                method: 'GET'
+            });
 
+            if (!response.ok) {
+                throw new Error(`Failed to get messages: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            const result = {};
+
+            data.forEach(item => {
+                const [arg1, rest] = item.split('>');
+                const [arg2, arg3] = rest.split('.');
+
+                const cleanArg1 = arg1.replace(/"/g, '');
+                const cleanArg2 = arg2.replace(/"/g, '');
+
+                if (cleanArg2 === localStorage.getItem("verified")) {
+                    result[cleanArg1] = arg3;
+                }
+            });
+
+            return result;
+
+        } catch (error) {
+            console.error('Error:', error);
+            return null;
+        }
+    }
+
+    async function awaitMessages(){
+        const fetched = await get()
+        console.log(fetched);
+    }
+    awaitMessages()
 </script>
