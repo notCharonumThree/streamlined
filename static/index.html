@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="index.css" />
     <script src="global.js"></script>
     <script src="home.js"></script>
+    <script src="verifier.js"></script>
   </head>
   <body>
     <div class="fixed-nav-bar">
@@ -70,16 +71,6 @@
           `
           doc.head.appendChild(script)
         }
-      }
-        res = await fetch("/verified", {
-        method: "POST",
-        body: JSON.stringify({"name": localStorage.getItem('verified')}),
-        headers: {
-            "Content-type": "application/json"
-        }
-    })
-      if (!await res.json()) {
-        window.location.href = '/verify.html'
       }
     }
     check()
